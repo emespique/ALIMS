@@ -1,6 +1,6 @@
 <!-- dashboard.php -->
 <?php
-session_start();
+require 'header.php';
 
 // Check if the user is logged in
 if (!isset($_SESSION['username'])) {

@@ -34,6 +34,19 @@
     margin-top: 10px;
 }
 
+.update-container {
+    background-color: #f9f9f9; /* Light background */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: auto;
+    max-width: 1050px; /* Adjust as necessary */
+}
+
+#update-personal-info-header {
+    margin-bottom: 30px;
+}
+
 .input-group {
     margin-bottom: 20px;
 }
@@ -44,17 +57,81 @@ label {
     margin-bottom: 5px;
 }
 
-input[type="text"], select {
-    width: calc(100% - 20px);
-    padding: 10px;
+/* Styling for name fields */
+.name-input {
+    width: 60%; /* Adjust the percentage or set a fixed width */
+    max-width: 300px; /* Optional: set a max width */
+    margin-bottom: 15px;
+    padding: 8px;
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-.save-button {
-    display: block;
-    margin: 20px auto;
+/* Styling for dropdowns */
+.info-dropdown {
+    width: 60%; /* Adjust the percentage or set a fixed width */
+    max-width: 300px; /* Optional: set a max width */
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Space between the buttons */
+    margin-top: 20px;
+}
+
+.save-button,
+.cancel-button {
     padding: 10px 20px;
     font-size: 16px;
+}
+
+.cancel-button {
+    background-color: #ccc; /* Light gray for differentiation */
+    color: #333;
+}
+
+.cancel-button:hover {
+    background-color: #bbb; /* Slightly darker on hover */
+}
+
+#update-account-info-header {
+    margin-bottom: 32px;
+}
+
+#username_group, #password_group, #matching_group {
+    position: relative; /* Make it the reference point for the error message */
+}
+
+.update-container #username_error, #password_error, #matching_error {
+    display: inline-block;
+    color: #D32F2F; /* White text for contrast */
+    background-color: #FFEBEE; /* Match the dark burgundy */
+    font-size: 0.8em;
+    padding: 8px;
+    border-radius: 4px;
+    margin-top: 8px;
+    position: absolute; /* Position relative to the input field */
+    left: 0; /* Align with the left edge of the input */
+    top: 90%; /* Directly below the input field */
+    transform: translateY(-10px); /* Adjust this value to move it closer */
+    box-sizing: border-box;
+    white-space: nowrap;
+    z-index: 10; /* Ensure it appears above other elements */
+}
+
+.update-container #username_error::before, #password_error::before, #matching_error::before {
+    content: "";
+    position: absolute;
+    top: -15px; /* Offset by the border width to align with input field */
+    left: 8px; /* Center the arrow horizontally */
+    border-width: 8px; /* Size of the arrow */
+    border-style: solid;
+    border-color: transparent transparent #FFEBEE transparent; /* Arrow pointing up */
 }

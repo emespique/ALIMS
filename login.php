@@ -25,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Login successful, store user information in session and redirect
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user['role']; // Store the role ('admin' or 'user')
+            $_SESSION['user_id'] = $user['id']; // Store the user ID in the session
             header("Location: dashboard.php");
             exit();
         } else {

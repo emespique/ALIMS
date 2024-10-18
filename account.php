@@ -1,32 +1,32 @@
 <!-- account.php -->
-<?php 
+<?php
+// Start the session and include the database connection
 session_start();
-require 'db_connection.php'; // Ensure this file path is correct
+require 'db_connection.php';
 
-// Check if user is logged in
-if (!isset($_SESSION['username'])) {
+// Check if the user ID is set in the session
+if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
 
-// Get the logged-in user's information
-$username = $_SESSION['username'];
-$stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
-$stmt->bind_param("s", $username);
+// Fetch the user's ID from the session
+$user_id = $_SESSION['user_id'];
+
+// Initialize variables
+$first_name = $middle_initial = $last_name = $designation = $laboratory = "";
+
+// Fetch the latest user information from the database
+$stmt = $conn->prepare("SELECT first_name, middle_initial, last_name, designation, laboratory, username FROM users WHERE id = ?");
+$stmt->bind_param("i", $user_id);
 $stmt->execute();
-$result = $stmt->get_result();
-
-if ($result->num_rows > 0) {
-    $user = $result->fetch_assoc();
-} else {
-    echo "User not found.";
-    exit();
-}
-
+$stmt->bind_result($first_name, $middle_initial, $last_name, $designation, $laboratory, $username);
+$stmt->fetch();
 $stmt->close();
+
+// Close the database connection
 $conn->close();
 ?>
-
 
 
 <!DOCTYPE html>
@@ -47,9 +47,9 @@ $conn->close();
             <div class="information">
                 <div class="personal-section">
                     <h2>PERSONAL INFORMATION</h2>
-                        <p><strong>Name:</strong> <?php echo htmlspecialchars($user['first_name'] . ' ' . $user['middle_initial'] . '.' . ' ' . $user['last_name']); ?></p>
-                        <p><strong>Designation:</strong> <?php echo htmlspecialchars($user['designation']); ?></p>
-                        <p><strong>Laboratory:</strong> <?php echo htmlspecialchars($user['laboratory']); ?></p>
+                    <p><strong>Name:</strong> <?php echo htmlspecialchars($first_name) . ' ' . htmlspecialchars($middle_initial) . '. ' . htmlspecialchars($last_name); ?></p>
+                    <p><strong>Designation:</strong> <?php echo htmlspecialchars($designation); ?></p>
+                    <p><strong>Laboratory:</strong> <?php echo htmlspecialchars($laboratory); ?></p>
                     <button class="update-button" id="personal-button" onclick="location.href='update_personal_info.php';">
                         🖊  Update Personal Information
                     </button>
@@ -57,7 +57,7 @@ $conn->close();
 
                 <div class="account-section">
                     <h2>ACCOUNT INFORMATION</h2>
-                        <p><strong>Username:</strong> <?php echo htmlspecialchars($user['username']); ?></p>
+                        <p><strong>Username:</strong> <?php echo htmlspecialchars($username); ?></p>
                         <p><strong>Password:</strong> **********</p> <!-- Masked password for security -->
                     </div>
                     <button class="update-button" id="account-button" onclick="location.href='update_account_info.php';">
