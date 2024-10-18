@@ -92,3 +92,34 @@ body{
     margin-top: 10px;
     text-decoration: none;
 }
+
+.interactive {
+    position: relative; /* Make it the reference point for the error message */
+}
+
+.login-container .error-message {
+    display: inline-block;
+    color: #D32F2F; /* White text for contrast */
+    background-color: #FFEBEE; /* Match the dark burgundy */
+    font-size: 0.8em;
+    padding: 8px;
+    border-radius: 4px;
+    margin-top: 8px;
+    position: absolute; /* Position relative to the input field */
+    left: 0; /* Align with the left edge of the input */
+    top: 90%; /* Directly below the input field */
+    transform: translateY(-10px); /* Adjust this value to move it closer */
+    box-sizing: border-box;
+    white-space: nowrap;
+    z-index: 10; /* Ensure it appears above other elements */
+}
+
+.login-container .error-message::before {
+    content: "";
+    position: absolute;
+    top: -15px; /* Offset by the border width to align with input field */
+    left: 8px; /* Center the arrow horizontally */
+    border-width: 8px; /* Size of the arrow */
+    border-style: solid;
+    border-color: transparent transparent #FFEBEE transparent; /* Arrow pointing up */
+}
