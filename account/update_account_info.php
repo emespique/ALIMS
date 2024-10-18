@@ -1,7 +1,7 @@
 <?php
 // Start the session and include the database connection
-require 'header.php';
-require 'db_connection.php';
+require '../header.php';
+require '../db_connection.php';
 
 // Check if the user ID is set in the session
 if (!isset($_SESSION['user_id'])) {
@@ -76,12 +76,12 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Account Information</title>
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <link rel="stylesheet" type="text/css" href="css/account.css">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link rel="stylesheet" type="text/css" href="../css/account.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <?php include 'header.php'; ?> <!-- Include header if necessary -->
+    <?php include '../header.php'; ?> <!-- Include header if necessary -->
     
     <div class="content">
         <div class="update-container">
@@ -121,7 +121,7 @@ $conn->close();
         </div>
     </div>
     
-    <?php include 'footer.php'; ?>
+    <?php include '../footer.php'; ?>
 
     <script>
         function validateForm() {
@@ -155,18 +155,22 @@ $conn->close();
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-        // Get all input fields with the class 'name-input'
-        const inputs = document.querySelectorAll('.name-input');
+            // Get all input fields with the class 'name-input'
+            const inputs = document.querySelectorAll('.name-input');
 
-        // Add a focus event listener to each input field
-        inputs.forEach(input => {
-            input.addEventListener('focus', function() {
-                // Find all error messages on the page
-                const errorSpans = document.querySelectorAll('.error');
-                
-                // Clear the content of all error messages
-                errorSpans.forEach(errorSpan => {
-                    errorSpan.textContent = '';
+            // Add a focus event listener to each input field
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    // Find all error messages on the page
+                    const errorSpans = document.querySelectorAll('.error');
+
+                    // Clear the content and hide all error messages
+                    errorSpans.forEach(errorSpan => {
+                        errorSpan.textContent = ''; // Remove the text content
+                        errorSpan.classList.add('hidden'); // Add hidden class to hide the element and its arrow
+
+                        // Additionally, ensure any inline styles that might keep the arrow visible are removed
+                        errorSpan.style.display = 'none';
                     });
                 });
             });

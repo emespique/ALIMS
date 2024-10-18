@@ -2,6 +2,9 @@
 <?php
 session_start();
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
+
+// Use the root-relative URL to point directly to the image
+$basePath = '/ALIMS/';
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +19,7 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
 <body>
     <div class="navbar">
         <div class="logo-container">
-            <img src="lab-icon.png" alt="Lab Icon">
+            <img src="<?php echo $basePath; ?>lab-icon.png" alt="Lab Icon">
             <span>ALIMS</span>
         </div>
 
@@ -29,15 +32,15 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
                     <a href="#">Microbiology</a>
                 </div>
             </div>
-            <a href="purchase order.php">PURCHASE ORDER</a>
-            <a href="stock level report.php">STOCK LEVEL REPORT</a>
-            <a href="disposition.php">DISPOSITION</a>
+            <a href="/ALIMS/purchase order.php">PURCHASE ORDER</a>
+            <a href="/ALIMS/stock level report.php">STOCK LEVEL REPORT</a>
+            <a href="/ALIMS/disposition.php">DISPOSITION</a>
             <?php if ($role === 'admin'): ?>
-                <a href="accounts.php">ACCOUNTS</a> <!-- Show "Accounts" for admin -->
+                <a href="/ALIMS/accounts/accounts.php">ACCOUNTS</a> <!-- Show "Accounts" for admin -->
             <?php else: ?>
-                <a href="account.php">ACCOUNT</a> <!-- Show "Account" for user -->
+                <a href="/ALIMS/account/account.php">ACCOUNT</a> <!-- Show "Account" for user -->
             <?php endif; ?>
-            <a href="login.php">SIGN OUT</a>
+            <a href="/ALIMS/login.php">SIGN OUT</a>
         </div>
     </div>
 </body>

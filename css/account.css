@@ -135,3 +135,7 @@ label {
     border-style: solid;
     border-color: transparent transparent #FFEBEE transparent; /* Arrow pointing up */
 }
+
+.update-container .hidden {
+    display: none;
+}

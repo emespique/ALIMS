@@ -2,7 +2,7 @@
 <?php
 // Start the session and include the database connection
 session_start();
-require 'db_connection.php';
+require '../db_connection.php';
 
 // Check if the user ID is set in the session
 if (!isset($_SESSION['user_id'])) {
@@ -34,13 +34,13 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <link rel="stylesheet" type="text/css" href="css/account.css">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link rel="stylesheet" type="text/css" href="../css/account.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <title>Account</title>
 </head>
 <body>
-    <?php include 'header.php'; ?>
+    <?php include '../header.php'; ?>
 
     <div class="content">
         <div class="account-container">
@@ -68,6 +68,6 @@ $conn->close();
         </div>
     </div>
 
-    <?php include 'footer.php'; ?>
+    <?php include '../footer.php'; ?>
 </body>
 </html>

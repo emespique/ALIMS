@@ -2,8 +2,8 @@
 
 <?php
 // Start the session and include the database connection
-require 'header.php';
-require 'db_connection.php';
+require '../header.php';
+require '../db_connection.php';
 
 // Check if the user ID is set in the session
 if (!isset($_SESSION['user_id'])) {
@@ -61,12 +61,12 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Personal Information</title>
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <link rel="stylesheet" type="text/css" href="css/account.css">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link rel="stylesheet" type="text/css" href="../css/account.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <?php include 'header.php'; ?> <!-- Include header if necessary -->
+    <?php include '../header.php'; ?> 
     
     <div class="content">
         <div class="update-container">
@@ -111,6 +111,6 @@ $conn->close();
         </div>
     </div>
     
-    <?php include 'footer.php'; ?>
+    <?php include '../footer.php'; ?>
 </body>
 </html>

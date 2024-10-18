@@ -1,0 +1,47 @@
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.user-table th, .user-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+    background: #FFF;
+}
+
+.user-table th {
+    background-color: #800020;
+    color: white;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.edit-button, .delete-button, .add-button {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.delete-button {
+    background-color: #f44336;
+    color: white;
+}
+
+.add-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
