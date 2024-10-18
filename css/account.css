@@ -1,0 +1,60 @@
+/* Account container styling */
+.account-container {
+    background-color: #f9f9f9; /* Light background */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Information styling */
+.information {
+    margin-left: 40px;
+    margin-bottom: 30px;
+}
+
+/* Personal section styling */
+.personal-section {
+    margin-bottom: 50px;
+}
+
+/* Paragraphs specific to the account and personal sections */
+.personal-section p, .account-section p {
+    margin-left: 50px;
+    font-size: 16px;
+    color: #333;
+}
+
+#personal-button, #account-button {
+    display: block; /* Makes the button take the full width of its container */
+    margin: 30px auto; /* Auto margins for left and right centers it horizontally */
+    width: fit-content; /* Makes the button only as wide as its content */
+}
+
+.update-button {
+    margin-top: 10px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"], select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.save-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+}
