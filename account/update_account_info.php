@@ -1,3 +1,4 @@
+<!-- update_account_info.php -->
 <?php
 // Start the session and include the database connection
 require '../header.php';
@@ -40,9 +41,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // If no errors, update the database
     if (empty($username_error) && empty($password_error) && empty($confirm_password_error)) {
+        // Hash the password for security
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
         // Prepare an update statement
         $stmt = $conn->prepare("UPDATE users SET username = ?, password = ? WHERE id = ?");
-        $stmt->bind_param("ssi", $username, $password, $user_id);
+        $stmt->bind_param("ssi", $username, $hashed_password, $user_id);
         
         // Execute the statement and check for errors
         if ($stmt->execute()) {
@@ -57,10 +61,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 } else {
     // Fetch existing user information to populate the form if it's a GET request
-    $stmt = $conn->prepare("SELECT username, password FROM users WHERE id = ?");
+    $stmt = $conn->prepare("SELECT username FROM users WHERE id = ?");
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
-    $stmt->bind_result($username, $password);
+    $stmt->bind_result($username);
     $stmt->fetch();
     $stmt->close();
 }

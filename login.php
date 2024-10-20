@@ -20,8 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
 
-        // For now, compare plain-text passwords (use password_hash for real applications)
-        if ($password === $user['password']) {
+        // Verify the hashed password using password_verify
+        if (password_verify($password, $user['password'])) {
             // Login successful, store user information in session and redirect
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user['role']; // Store the role ('admin' or 'user')

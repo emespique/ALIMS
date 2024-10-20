@@ -1,5 +1,20 @@
 <!-- accounts.php -->
-<?php
+<?php 
+/*
+    // Start the session and include the necessary files
+    require '../header.php';
+    require '../db_connection.php';
+    // Check if the user ID is set in the session and if the user is an admin
+    if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+        header("Location: login.php");
+        exit();
+    }
+    // Fetch user data from the database
+    $stmt = $conn->prepare("SELECT id, first_name, middle_initial, last_name, designation, laboratory, username FROM users");
+    $stmt->execute();
+    $result = $stmt->get_result();
+*/
+
 // Start the session and include the necessary files
 require '../header.php';
 require '../db_connection.php';
@@ -10,11 +25,32 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     exit();
 }
 
-// Fetch user data from the database
-$stmt = $conn->prepare("SELECT id, first_name, last_name, designation, laboratory, username FROM users");
+// Initialize search variables
+$search = isset($_GET['search']) ? htmlspecialchars(trim($_GET['search'])) : '';
+$option = isset($_GET['option']) ? htmlspecialchars(trim($_GET['option'])) : '';
+
+// Prepare SQL query based on search option
+if ($search && $option) {
+    if ($option === 'delete') {
+        $stmt = $conn->prepare("SELECT id, first_name, middle_initial, last_name, designation, laboratory, username FROM users WHERE first_name LIKE ? OR last_name LIKE ? OR username LIKE ?");
+        $searchTerm = "%" . $search . "%";
+        $stmt->bind_param("sss", $searchTerm, $searchTerm, $searchTerm);
+    } elseif ($option === 'single') {
+        $stmt = $conn->prepare("SELECT id, first_name, middle_initial, last_name, designation, laboratory, username FROM users WHERE first_name LIKE ? OR last_name LIKE ? OR username LIKE ?");
+        $searchTerm = "%" . $search . "%";
+        $stmt->bind_param("sss", $searchTerm, $searchTerm, $searchTerm);
+    } else { // View all users
+        $stmt = $conn->prepare("SELECT id, first_name, middle_initial, last_name, designation, laboratory, username FROM users");
+    }
+} else {
+    // Default view: show all users
+    $stmt = $conn->prepare("SELECT id, first_name, middle_initial, last_name, designation, laboratory, username FROM users");
+}
+
 $stmt->execute();
 $result = $stmt->get_result();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,14 +59,31 @@ $result = $stmt->get_result();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accounts</title>
     <link rel="stylesheet" type="text/css" href="../css/main.css">
-    <link rel="stylesheet" type="text/css" href="../css/admin_accounts_list.css"> <!-- Admin-specific CSS -->
+    <link rel="stylesheet" type="text/css" href="../css/accounts.css"> <!-- Admin-specific CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <?php include '../header.php'; ?> <!-- Include header if necessary -->
+    <?php include '../header.php'; ?> 
     
-    <div class="content">
-        <h2>Accounts</h2>
+    <div class="table-content">
+        <h2 id="accounts-header">Accounts</h2>
+
+        <div class="search-and-add-container">
+            <!-- Search Form -->
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search by name or username">
+                <select id="searchOption">
+                    <option value="all">View All Users</option>
+                    <option value="single">View Single User</option>
+                    <option value="delete">Delete User</option>
+                </select>
+                <button class="search-button" onclick="searchUser()">Search</button>
+            </div>
+            <div class="add-button-container">
+                <button class="add-button" onclick="window.location.href='add_user.php'">Add User</button>
+            </div>
+        </div>
+        
         <table class="user-table">
             <thead>
                 <tr>
@@ -44,7 +97,14 @@ $result = $stmt->get_result();
             <tbody>
                 <?php while ($row = $result->fetch_assoc()): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($row['first_name'] . ' ' . $row['last_name']); ?></td>
+                        <td>
+                            <?php echo htmlspecialchars(
+                                $row['first_name'] . 
+                                (!empty($row['middle_initial']) ? ' ' . $row['middle_initial'] . '. ' : ' ') . 
+                                $row['last_name']
+                            ); 
+                            ?>
+                        </td>
                         <td><?php echo htmlspecialchars($row['designation']); ?></td>
                         <td><?php echo htmlspecialchars($row['laboratory']); ?></td>
                         <td><?php echo htmlspecialchars($row['username']); ?></td>
@@ -58,16 +118,49 @@ $result = $stmt->get_result();
                 <?php endwhile; ?>
             </tbody>
         </table>
-        <button class="add-button" onclick="window.location.href='add_user.php'">Add User</button>
+    </div>
+
+    <div class="modal" id="deleteModal" style="display: none;">
+        <div class="modal-content">
+            <h2>Confirm Deletion</h2>
+            <p>Are you sure you want to delete this user?</p>
+            <form id="deleteForm" action="delete_user.php" method="POST">
+                <input type="hidden" name="user_id" id="deleteUserId">
+                <div class="modal-buttons">
+                    <button type="submit" class="delete-button">Delete</button>
+                    <button type="button" class="cancel-button" onclick="closeModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <?php include '../footer.php'; ?>
+
     <script>
-        // JavaScript function to confirm deletion
-        function deleteUser(userId) {
-            if (confirm('Are you sure you want to delete this user?')) {
-                window.location.href = 'delete_user.php?id=' + userId;
+        function searchUser() {
+            // Get search value and option
+            const searchInput = document.getElementById('searchInput').value.trim();
+            const searchOption = document.getElementById('searchOption').value;
+
+            if (searchInput === '') {
+                alert("Please enter a search term");
+                return;
             }
+
+            // Redirect to the search page with the search parameters
+            window.location.href = `accounts.php?search=${searchInput}&option=${searchOption}`;
+        }
+
+        function deleteUser(userId) {
+            // Set the hidden input value in the form
+            document.getElementById('deleteUserId').value = userId;
+            // Show the modal
+            document.getElementById('deleteModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            // Hide the modal
+            document.getElementById('deleteModal').style.display = 'none';
         }
     </script>
 </body>

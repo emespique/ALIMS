@@ -47,7 +47,12 @@ $conn->close();
             <div class="information">
                 <div class="personal-section">
                     <h2>PERSONAL INFORMATION</h2>
-                    <p><strong>Name:</strong> <?php echo htmlspecialchars($first_name) . ' ' . htmlspecialchars($middle_initial) . '. ' . htmlspecialchars($last_name); ?></p>
+                    <p><strong>Name:</strong> 
+                        <?php echo htmlspecialchars($first_name) . 
+                            (!empty($middle_initial) ? ' ' . htmlspecialchars($middle_initial) . '. ' : ' ') . 
+                            htmlspecialchars($last_name); 
+                        ?>
+                    </p>
                     <p><strong>Designation:</strong> <?php echo htmlspecialchars($designation); ?></p>
                     <p><strong>Laboratory:</strong> <?php echo htmlspecialchars($laboratory); ?></p>
                     <button class="update-button" id="personal-button" onclick="location.href='update_personal_info.php';">

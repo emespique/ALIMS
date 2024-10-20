@@ -1,0 +1,308 @@
+.user-table, #accounts-header {
+    width: 80%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.user-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.user-table th {
+    background-color: #8A1538;
+    color: white;
+    padding: 10px; 
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light gray for odd rows */
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #ffffff; /* White for even rows */
+}
+
+tbody tr:hover {
+    background-color: #e0e0e0; /* Light gray for hover effect */
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end; /* Aligns the buttons to the right */
+    gap: 10px;
+}
+
+.edit-button, .delete-button {
+    padding: 5px 10px;
+}
+
+.edit-button {
+    background-color: #4CAF50;
+}
+
+.delete-button {
+    background-color: #f44336;
+}
+
+
+/* Information styling */
+.information {
+    margin-left: 40px;
+    margin-bottom: 30px;
+}
+
+.add-container, .update-container {
+    background-color: #f9f9f9; /* Light background */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: auto;
+    max-width: 1050px; /* Adjust as necessary */
+}
+
+#add-user-header, #update-user-header {
+    margin-bottom: 30px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Styling for name fields */
+.name-input {
+    width: 60%; /* Adjust the percentage or set a fixed width */
+    max-width: 300px; /* Optional: set a max width */
+    margin-bottom: 15px;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Styling for dropdowns */
+.info-dropdown {
+    width: 60%; /* Adjust the percentage or set a fixed width */
+    max-width: 300px; /* Optional: set a max width */
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Space between the buttons */
+    margin-top: 20px;
+}
+
+.save-button,
+.cancel-button {
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+.cancel-button {
+    background-color: #ccc; /* Light gray for differentiation */
+    color: #333;
+}
+
+.cancel-button:hover {
+    background-color: #bbb; /* Slightly darker on hover */
+}
+
+#username_group, #password_group, #matching_group {
+    position: relative; /* Make it the reference point for the error message */
+}
+
+.add-container #username_error, #password_error, #matching_error {
+    display: inline-block;
+    color: #D32F2F; /* White text for contrast */
+    background-color: #FFEBEE; /* Match the dark burgundy */
+    font-size: 0.8em;
+    padding: 8px;
+    border-radius: 4px;
+    margin-top: 8px;
+    position: absolute; /* Position relative to the input field */
+    left: 0; /* Align with the left edge of the input */
+    top: 90%; /* Directly below the input field */
+    transform: translateY(-10px); /* Adjust this value to move it closer */
+    box-sizing: border-box;
+    white-space: nowrap;
+    z-index: 10; /* Ensure it appears above other elements */
+}
+
+.add-container #username_error::before, #password_error::before, #matching_error::before {
+    content: "";
+    position: absolute;
+    top: -15px; /* Offset by the border width to align with input field */
+    left: 8px; /* Center the arrow horizontally */
+    border-width: 8px; /* Size of the arrow */
+    border-style: solid;
+    border-color: transparent transparent #FFEBEE transparent; /* Arrow pointing up */
+}
+
+.add-container .hidden {
+    display: none !important;
+    visibility: hidden;  /*Ensure it is fully hidden*/
+} 
+
+.add-container .error:before, .add-container .error:after {
+    content: "";
+    display: none;
+}
+
+
+.update-container #username_error, #password_error, #matching_error {
+    display: inline-block;
+    color: #D32F2F; /* White text for contrast */
+    background-color: #FFEBEE; /* Match the dark burgundy */
+    font-size: 0.8em;
+    padding: 8px;
+    border-radius: 4px;
+    margin-top: 8px;
+    position: absolute; /* Position relative to the input field */
+    left: 0; /* Align with the left edge of the input */
+    top: 90%; /* Directly below the input field */
+    transform: translateY(-10px); /* Adjust this value to move it closer */
+    box-sizing: border-box;
+    white-space: nowrap;
+    z-index: 10; /* Ensure it appears above other elements */
+}
+
+.update-container #username_error::before, #password_error::before, #matching_error::before {
+    content: "";
+    position: absolute;
+    top: -15px; /* Offset by the border width to align with input field */
+    left: 8px; /* Center the arrow horizontally */
+    border-width: 8px; /* Size of the arrow */
+    border-style: solid;
+    border-color: transparent transparent #FFEBEE transparent; /* Arrow pointing up */
+}
+
+.update-container .hidden {
+    display: none !important;
+    visibility: hidden;  /*Ensure it is fully hidden*/
+}
+
+.update-container .error:before, .update-container .error:after {
+    content: "";
+    display: none;
+}
+
+/* Modal container */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+    justify-content: center; /* Center the modal horizontally */
+    align-items: center; /* Center the modal vertically */
+}
+
+/* Modal content */
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 400px; /* Limit the width */
+    width: 90%; /* Responsive width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center; /* Center the text inside the modal */
+}
+
+/* Heading for the modal */
+.modal-content h2 {
+    margin-top: 0;
+    font-size: 1.5em;
+    color: #8A1538; /* Match your site's color theme */
+    text-align: center; /* Center the heading */
+}
+
+/* Paragraph inside the modal */
+.modal-content p {
+    text-align: center; /* Center the paragraph text */
+    margin-bottom: 20px; /* Add some space below the text */
+}
+
+/* Modal buttons container */
+.modal-buttons {
+    display: flex;
+    justify-content: center; /* Center the buttons horizontally */
+    gap: 10px; /* Reduce the space between buttons */
+    margin-top: 20px; /* Space above the buttons */
+}
+
+/* Styling for the Delete and Cancel buttons */
+.modal-buttons .delete-button,
+.modal-buttons .cancel-button {
+    background-color: #D32F2F; /* Red for delete button */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    width: 100px; /* Fixed width for uniform size */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center; /* Center text inside the button */
+}
+
+/* Styling for the Cancel button specifically */
+.modal-buttons .cancel-button {
+    background-color: #6e6e6e; /* Gray for cancel button */
+}
+
+/* Hover effect for buttons */
+.modal-buttons .delete-button:hover,
+.modal-buttons .cancel-button:hover {
+    opacity: 0.9;
+}
+
+.search-and-add-container {
+    width: 90%;
+    display: flex;
+    justify-content: flex-end; /* Aligns items to the start */
+    align-items: center;
+    gap: 130px; /* Space between the search container and the add button */
+    margin-bottom: 20px; /* Add some space below the container */
+}
+
+.search-container {
+    display: flex;
+    gap: 10px; /* Space between the input, dropdown, and button */
+}
+
+.search-button, .add-button {
+    padding: 8px 15px;
+    border-radius: 4px;
+}
+
+#searchInput {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px;
+}
+
+#searchOption {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

@@ -5,12 +5,11 @@
     padding: 10px;
     position: fixed;
     left: 0;
-    top: 0;
-     
+    top: 0;    
     display: flex;
     justify-content: space-between; /* Spaces the items evenly */
     align-items: center;
-
+    z-index: 1000;
 }
 
 .nav-links {
@@ -113,6 +112,7 @@ footer {
     display: flex;
     align-items: center; 
     justify-content: flex-start;
+    z-index: 1000;
 }
 
 .footer-text {
@@ -133,8 +133,13 @@ footer {
     margin: 0 auto;
     margin-top: 50px;
     margin-bottom: 50px;
-    overflow-y: auto; /* Enables vertical scrolling */
-    max-height: 100vh; /* Adjust the height as needed */
+}
+
+.table-content {
+    padding: 20px;
+    max-width: 1600px;
+    margin: 0 auto;
+    margin-top: 10px;
 }
 
 /* Headings */
