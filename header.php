@@ -27,9 +27,9 @@ $basePath = '/ALIMS/';
             <div class="dropdown">
                 <a href="#">LABORATORIES</a>
                 <div class="dropdown-content">
-                    <a href="#">Pathology</a>
-                    <a href="#">Immunology</a>
-                    <a href="#">Microbiology</a>
+                    <a href="/ALIMS/pathology.php">Pathology</a>
+                    <a href="/ALIMS/immunology.php">Immunology</a>
+                    <a href="/ALIMS/microbiology.php">Microbiology</a>
                 </div>
             </div>
             <a href="/ALIMS/purchase order.php">PURCHASE ORDER</a>
