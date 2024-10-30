@@ -32,19 +32,19 @@ $option = isset($_GET['option']) ? htmlspecialchars(trim($_GET['option'])) : '';
 // Prepare SQL query based on search option
 if ($search && $option) {
     if ($option === 'delete') {
-        $stmt = $conn->prepare("SELECT id, first_name, middle_initial, last_name, designation, laboratory, username FROM users WHERE first_name LIKE ? OR last_name LIKE ? OR username LIKE ?");
+        $stmt = $conn->prepare("SELECT id, first_name, middle_initial, last_name, designation, laboratory, username, role, email FROM users WHERE first_name LIKE ? OR last_name LIKE ? OR username LIKE ?");
         $searchTerm = "%" . $search . "%";
         $stmt->bind_param("sss", $searchTerm, $searchTerm, $searchTerm);
     } elseif ($option === 'single') {
-        $stmt = $conn->prepare("SELECT id, first_name, middle_initial, last_name, designation, laboratory, username FROM users WHERE first_name LIKE ? OR last_name LIKE ? OR username LIKE ?");
+        $stmt = $conn->prepare("SELECT id, first_name, middle_initial, last_name, designation, laboratory, username, role, email FROM users WHERE first_name LIKE ? OR last_name LIKE ? OR username LIKE ?");
         $searchTerm = "%" . $search . "%";
         $stmt->bind_param("sss", $searchTerm, $searchTerm, $searchTerm);
     } else { // View all users
-        $stmt = $conn->prepare("SELECT id, first_name, middle_initial, last_name, designation, laboratory, username FROM users");
+        $stmt = $conn->prepare("SELECT id, first_name, middle_initial, last_name, designation, laboratory, username, role, email FROM users");
     }
 } else {
     // Default view: show all users
-    $stmt = $conn->prepare("SELECT id, first_name, middle_initial, last_name, designation, laboratory, username FROM users");
+    $stmt = $conn->prepare("SELECT id, first_name, middle_initial, last_name, designation, laboratory, username, role, email FROM users");
 }
 
 $stmt->execute();
@@ -87,16 +87,19 @@ $result = $stmt->get_result();
         <table class="user-table">
             <thead>
                 <tr>
+                    <th>Role</th>
                     <th>Name</th>
                     <th>Designation</th>
                     <th>Laboratory</th>
                     <th>Username</th>
+                    <th>Email</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php while ($row = $result->fetch_assoc()): ?>
                     <tr>
+                        <td><?php echo htmlspecialchars($row['role']); ?></td>
                         <td>
                             <?php echo htmlspecialchars(
                                 $row['first_name'] . 
@@ -108,10 +111,16 @@ $result = $stmt->get_result();
                         <td><?php echo htmlspecialchars($row['designation']); ?></td>
                         <td><?php echo htmlspecialchars($row['laboratory']); ?></td>
                         <td><?php echo htmlspecialchars($row['username']); ?></td>
+                        <td><?php echo htmlspecialchars($row['email']); ?></td>
                         <td>
                             <div class="actions">
-                                <button class="edit-button" onclick="window.location.href='edit_user.php?id=<?php echo $row['id']; ?>'">Edit</button>
-                                <button class="delete-button" onclick="deleteUser(<?php echo $row['id']; ?>)">Delete</button>
+                                <?php if ($_SESSION['user_id'] == 1 || ($_SESSION['user_id'] == $row['id']) || ($row['role'] == 'user' && $_SESSION['role'] == 'admin')): ?>
+                                    <button class="edit-button" onclick="window.location.href='edit_user.php?id=<?php echo $row['id']; ?>'">Edit</button>
+                                <?php endif; ?>
+                                
+                                <?php if ($_SESSION['user_id'] == 1 || ($_SESSION['user_id'] == $row['id']) || ($row['role'] == 'user' && $_SESSION['role'] == 'admin')): ?>
+                                    <button class="delete-button" onclick="deleteUser(<?php echo $row['id']; ?>)">Delete</button>
+                                <?php endif; ?>
                             </div>
                         </td>
                     </tr>
