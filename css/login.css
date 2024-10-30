@@ -97,6 +97,24 @@ body{
     position: relative; /* Make it the reference point for the error message */
 }
 
+#password::-ms-reveal,
+#password::-ms-clear,
+#password::-webkit-inner-spin-button, 
+#password::-webkit-textfield-decoration-container {
+    display: none;
+}
+
+.password-container .eye-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-25%);
+    cursor: pointer;
+    font-size: 18px;
+    color: #333;
+    z-index: 1;
+}
+
 .login-container .error-message {
     display: inline-block;
     color: #D32F2F; /* White text for contrast */

@@ -53,6 +53,8 @@ $conn->close();
     <link rel="stylesheet" type="text/css" href="css/login.css"> <!-- Link to your CSS file -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
 </head>
 <body>
     <div class="container">
@@ -81,7 +83,12 @@ $conn->close();
 
                 <div class="interactive">
                     <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required>
+                    <div class="password-container">
+                        <input type="password" id="password" name="password" required>
+                        <span class="eye-icon" onclick="togglePassword()">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </div>
                     <?php if (!empty($password_error)): ?>
                         <span class="error-message"><?php echo $password_error; ?></span>
                     <?php endif; ?>
@@ -98,5 +105,24 @@ $conn->close();
 
         </div>
     </div>
+
+    <script>
+        function togglePassword() {
+            const passwordField = document.getElementById("password");
+            const eyeIcon = document.querySelector(".eye-icon i");
+
+            // Toggle the type attribute
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash"); // Switch to eye-slash icon
+            } else {
+                passwordField.type = "password";
+                eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye"); // Switch back to eye icon
+            }
+        }
+    </script>
+
 </body>
 </html>
