@@ -34,6 +34,7 @@ $table_sql = "CREATE TABLE IF NOT EXISTS users (
     laboratory ENUM('Pathology', 'Immunology', 'Microbiology') NOT NULL,
     username VARCHAR(15) NOT NULL,
     password VARCHAR(255) NOT NULL,
+    email VARCHAR(100) NOT NULL,
     role ENUM('admin', 'user') DEFAULT 'user',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
@@ -50,12 +51,13 @@ function hashPassword($password) {
 }
 
 // SQL query to insert admins and users with hashed passwords
-$insert_sql = "INSERT INTO users (last_name, first_name, middle_initial, designation, laboratory, username, password, role) VALUES 
-('Admin1', 'Admin1', 'A', 'Lab Manager', 'Pathology', 'PathAdmin1', '" . hashPassword('password1@') . "', 'admin'),
-('Admin2', 'Admin2', 'B', 'Medical Technologist', 'Immunology', 'ImmunAdmin2', '" . hashPassword('password2@') . "', 'admin'),
-('Admin3', 'Admin3', 'C', 'Technician', 'Microbiology', 'MicroAdmin3', '" . hashPassword('password3@') . "', 'admin'),
-('TestUser', 'TestUser', 'D', 'Researcher', 'Microbiology', 'TestUser1', '" . hashPassword('password4@') . "', 'user'),
-('TestUser2', 'TestUser2', 'E', 'Student', 'Pathology', 'TestUser2', '" . hashPassword('password5@') . "', 'user')";
+$insert_sql = "INSERT INTO users (last_name, first_name, middle_initial, designation, laboratory, username, password, email, role) VALUES
+('Admin1', 'Admin1', 'A', 'Lab Manager', 'Microbiology', 'HeadAdmin1', '" . hashPassword('password1@') . "', 'admin1@example.com', 'admin'),
+('Admin2', 'Admin2', 'B', 'Lab Manager', 'Pathology', 'PathAdmin2', '" . hashPassword('password2@') . "', 'admin2@example.com', 'admin'),
+('Admin3', 'Admin3', 'C', 'Medical Technologist', 'Immunology', 'ImmunAdmin3', '" . hashPassword('password3@') . "', 'admin3@example.com', 'admin'),
+('Admin4', 'Admin4', 'D', 'Technician', 'Microbiology', 'MicroAdmin4', '" . hashPassword('password4@') . "', 'admin4@example.com', 'admin'),
+('TestUser1', 'TestUser1', 'E', 'Researcher', 'Microbiology', 'TestUser1', '" . hashPassword('password5@') . "', 'testuser1@example.com', 'user'),
+('TestUser2', 'TestUser2', 'F', 'Student', 'Pathology', 'TestUser2', '" . hashPassword('password6@') . "', 'testuser2@example.com', 'user')";
 
 // Execute the insert query
 if ($conn->query($insert_sql) === TRUE) {
