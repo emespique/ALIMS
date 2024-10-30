@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root"; // Default XAMPP MySQL username
 $password = ""; // Default XAMPP MySQL password (blank)
-$dbname = "user_management"; // Database name you want to create
+$dbname = "user_management"; // Name of database to be created
 
 // Create connection
 $conn = new mysqli($servername, $username, $password);
@@ -49,7 +49,7 @@ function hashPassword($password) {
     return password_hash($password, PASSWORD_DEFAULT);
 }
 
-// SQL query to insert admin users with hashed passwords
+// SQL query to insert admins and users with hashed passwords
 $insert_sql = "INSERT INTO users (last_name, first_name, middle_initial, designation, laboratory, username, password, role) VALUES 
 ('Admin1', 'Admin1', 'A', 'Lab Manager', 'Pathology', 'PathAdmin1', '" . hashPassword('password1@') . "', 'admin'),
 ('Admin2', 'Admin2', 'B', 'Medical Technologist', 'Immunology', 'ImmunAdmin2', '" . hashPassword('password2@') . "', 'admin'),

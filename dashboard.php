@@ -1,15 +1,25 @@
 <!-- dashboard.php -->
 <?php
 require 'header.php';
+require 'db_connection.php'; // Make sure you include your database connection
 
 // Check if the user is logged in
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['user_id'])) {
     // User is not logged in, redirect to login page
-    header("Location: login.php"); 
+    header("Location: login.php");
     exit();
 }
-?>
 
+// Fetch the username from the database based on the logged-in user's ID
+$user_id = $_SESSION['user_id'];
+$stmt = $conn->prepare("SELECT username FROM users WHERE id = ?");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$stmt->bind_result($username);
+$stmt->fetch();
+$stmt->close();
+$conn->close();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +32,7 @@ if (!isset($_SESSION['username'])) {
     <?php include 'header.php'; ?>
 
     <div class="content">
-        <h1>Welcome to the Dashboard, <?php echo $_SESSION['username']; ?>!</h1>
+        <h1>Welcome to the Dashboard, <?php echo htmlspecialchars($username); ?>!</h1>
     </div>
 
     <?php include 'footer.php'; ?>
