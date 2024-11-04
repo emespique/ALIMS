@@ -24,6 +24,7 @@ $basePath = '/ALIMS/';
         </div>
 
         <div class="nav-links">
+        <a href="/ALIMS/dashboard.php">DASHBOARD</a>
             <div class="dropdown">
                 <a href="#">LABORATORIES</a>
                 <div class="dropdown-content">
