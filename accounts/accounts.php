@@ -61,6 +61,7 @@ $result = $stmt->get_result();
     <link rel="stylesheet" type="text/css" href="../css/main.css">
     <link rel="stylesheet" type="text/css" href="../css/accounts.css"> <!-- Admin-specific CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <script defer src="../js/user_validation.js"></script>
 </head>
 <body>
     <?php include '../header.php'; ?> 
@@ -144,33 +145,5 @@ $result = $stmt->get_result();
     </div>
 
     <?php include '../footer.php'; ?>
-
-    <script>
-        function searchUser() {
-            // Get search value and option
-            const searchInput = document.getElementById('searchInput').value.trim();
-            const searchOption = document.getElementById('searchOption').value;
-
-            if (searchInput === '') {
-                alert("Please enter a search term");
-                return;
-            }
-
-            // Redirect to the search page with the search parameters
-            window.location.href = `accounts.php?search=${searchInput}&option=${searchOption}`;
-        }
-
-        function deleteUser(userId) {
-            // Set the hidden input value in the form
-            document.getElementById('deleteUserId').value = userId;
-            // Show the modal
-            document.getElementById('deleteModal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            // Hide the modal
-            document.getElementById('deleteModal').style.display = 'none';
-        }
-    </script>
 </body>
 </html>

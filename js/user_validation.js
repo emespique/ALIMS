@@ -56,3 +56,32 @@ function toggleReenteredPassword() {
         eyeIcon.classList.add("fa-eye"); // Switch back to eye icon
     }
 }
+
+// Function to search a user
+function searchUser() {
+    // Get search value and option
+    const searchInput = document.getElementById('searchInput').value.trim();
+    const searchOption = document.getElementById('searchOption').value;
+
+    if (searchInput === '') {
+        alert("Please enter a search term");
+        return;
+    }
+
+    // Redirect to the search page with the search parameters
+    window.location.href = `accounts.php?search=${searchInput}&option=${searchOption}`;
+}
+
+// Function to delete the selected user in the accounts table
+function deleteUser(userId) {
+    // Set the hidden input value in the form
+    document.getElementById('deleteUserId').value = userId;
+    // Show the modal
+    document.getElementById('deleteModal').style.display = 'flex';
+}
+
+// Function to close the Delete modal
+function closeModal() {
+    // Hide the modal
+    document.getElementById('deleteModal').style.display = 'none';
+}
