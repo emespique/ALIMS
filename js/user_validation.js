@@ -22,3 +22,37 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// Function to toggle the visibility of the password field
+function togglePassword() {
+    const passwordField = document.getElementById("password");
+    const eyeIcon = document.getElementById("eye-icon-password");
+
+    // Toggle the type attribute
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+        eyeIcon.classList.remove("fa-eye");
+        eyeIcon.classList.add("fa-eye-slash"); // Switch to eye-slash icon
+    } else {
+        passwordField.type = "password";
+        eyeIcon.classList.remove("fa-eye-slash");
+        eyeIcon.classList.add("fa-eye"); // Switch back to eye icon
+    }
+}
+
+// Function to toggle the visibility of the re-entered password field
+function toggleReenteredPassword() {
+    const passwordField = document.getElementById("reenteredpassword");
+    const eyeIcon = document.getElementById("eye-icon-reentered");
+
+    // Toggle the type attribute
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+        eyeIcon.classList.remove("fa-eye");
+        eyeIcon.classList.add("fa-eye-slash"); // Switch to eye-slash icon
+    } else {
+        passwordField.type = "password";
+        eyeIcon.classList.remove("fa-eye-slash");
+        eyeIcon.classList.add("fa-eye"); // Switch back to eye icon
+    }
+}

@@ -120,11 +120,11 @@ label {
     background-color: #bbb; /* Slightly darker on hover */
 }
 
-#username_group, #password_group, #matching_group {
+#username_group, #password_group, #matching_group, #email_group {
     position: relative; /* Make it the reference point for the error message */
 }
 
-.add-container #username_error, #password_error, #matching_error {
+.add-container #username_error, #password_error, #matching_error, #email_error {
     display: inline-block;
     color: #D32F2F; /* White text for contrast */
     background-color: #FFEBEE; /* Match the dark burgundy */
@@ -141,7 +141,7 @@ label {
     z-index: 10; /* Ensure it appears above other elements */
 }
 
-.add-container #username_error::before, #password_error::before, #matching_error::before {
+.add-container #username_error::before, #password_error::before, #matching_error::before, #email_error::before {
     content: "";
     position: absolute;
     top: -15px; /* Offset by the border width to align with input field */
@@ -162,7 +162,7 @@ label {
 }
 
 
-.update-container #username_error, #password_error, #matching_error {
+.update-container #username_error, #password_error, #matching_error, #email_error {
     display: inline-block;
     color: #D32F2F; /* White text for contrast */
     background-color: #FFEBEE; /* Match the dark burgundy */
@@ -179,7 +179,7 @@ label {
     z-index: 10; /* Ensure it appears above other elements */
 }
 
-.update-container #username_error::before, #password_error::before, #matching_error::before {
+.update-container #username_error::before, #password_error::before, #matching_error::before, #email_error::before {
     content: "";
     position: absolute;
     top: -15px; /* Offset by the border width to align with input field */
@@ -305,4 +305,29 @@ label {
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+#password::-ms-reveal,
+#password::-ms-clear,
+#password::-webkit-inner-spin-button, 
+#password::-webkit-textfield-decoration-container {
+    display: none;
+}
+
+#reenteredpassword::-ms-reveal,
+#reenteredpassword::-ms-clear,
+#reenteredpassword::-webkit-inner-spin-button, 
+#reenteredpassword::-webkit-textfield-decoration-container {
+    display: none;
+}
+
+.password-container .eye-icon {
+    position: absolute;
+    left: 280px;
+    top: 50%;
+    transform: translateY(-25%);
+    cursor: pointer;
+    font-size: 18px;
+    color: #333;
+    z-index: 1;
 }
