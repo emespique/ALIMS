@@ -57,7 +57,7 @@ function toggleReenteredPassword() {
     }
 }
 
-// Function to search a user
+// Function to search a user in the Accounts page
 function searchUser() {
     // Get search value and option
     const searchInput = document.getElementById('searchInput').value.trim();
@@ -72,7 +72,7 @@ function searchUser() {
     window.location.href = `accounts.php?search=${searchInput}&option=${searchOption}`;
 }
 
-// Function to delete the selected user in the accounts table
+// Function to delete the selected user in the accounts table in the Accounts page
 function deleteUser(userId) {
     // Set the hidden input value in the form
     document.getElementById('deleteUserId').value = userId;
@@ -80,8 +80,39 @@ function deleteUser(userId) {
     document.getElementById('deleteModal').style.display = 'flex';
 }
 
-// Function to close the Delete modal
+// Function to close the Delete modal in the Accounts page
 function closeModal() {
     // Hide the modal
     document.getElementById('deleteModal').style.display = 'none';
+}
+
+// Handles form validating for updating account information in the Account page
+function validateForm() {
+    let username = document.querySelector('[name="username"]').value;
+    let password = document.querySelector('[name="password"]').value;
+    let confirmPassword = document.querySelector('[name="confirm_password"]').value;
+    let isValid = true;
+
+    // Reset error messages
+    document.querySelectorAll('.error').forEach(el => el.textContent = '');
+
+    // Username validation
+    if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,15}$/.test(username)) {
+        document.querySelector('[name="username"]').nextElementSibling.textContent = 'Username must be 8-15 alphanumeric characters';
+        isValid = false;
+    }
+
+    // Password validation
+    if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/.test(password)) {
+        document.querySelector('[name="password"]').nextElementSibling.textContent = 'Password must be 8-15 characters composed of letters, numbers, and special characters';
+        isValid = false;
+    }
+
+    // Confirm password validation
+    if (password !== confirmPassword) {
+        document.querySelector('[name="confirm_password"]').nextElementSibling.textContent = 'Passwords do not match';
+        isValid = false;
+    }
+
+    return isValid;
 }

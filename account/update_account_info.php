@@ -14,19 +14,25 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 
 // Initialize variables for form submission and error messages
-$username = $password = $confirm_password = "";
-$username_error = $password_error = $confirm_password_error = "";
+$username = $email = $password = $confirm_password = "";
+$username_error = $email_error = $password_error = $confirm_password_error = "";
 
 // Handle form submission when the form is posted
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Retrieve and sanitize the form data
     $username = htmlspecialchars(trim($_POST['username']));
+    $email = htmlspecialchars(trim($_POST['email']));
     $password = htmlspecialchars(trim($_POST['password']));
     $confirm_password = htmlspecialchars(trim($_POST['confirm_password']));
 
     // Validate username (min 8 characters, max 15 alphanumeric)
     if (!preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,15}$/", $username)) {
         $username_error = "Username must be 8-15 alphanumeric characters";
+    }
+
+    // Validate the email
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $email_error = "Invalid email format";
     }
 
     // Validate password (min 8 characters, max 15 characters, must contain letters, numbers, and special characters)
@@ -40,13 +46,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // If no errors, update the database
-    if (empty($username_error) && empty($password_error) && empty($confirm_password_error)) {
+    if (empty($username_error) && empty($email_error) && empty($password_error) && empty($confirm_password_error)) {
         // Hash the password for security
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         // Prepare an update statement
-        $stmt = $conn->prepare("UPDATE users SET username = ?, password = ? WHERE id = ?");
-        $stmt->bind_param("ssi", $username, $hashed_password, $user_id);
+        $stmt = $conn->prepare("UPDATE users SET username = ?, email = ?, password = ? WHERE id = ?");
+        $stmt->bind_param("sssi", $username, $email, $hashed_password, $user_id);
         
         // Execute the statement and check for errors
         if ($stmt->execute()) {
@@ -61,10 +67,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 } else {
     // Fetch existing user information to populate the form if it's a GET request
-    $stmt = $conn->prepare("SELECT username FROM users WHERE id = ?");
+    $stmt = $conn->prepare("SELECT username, email FROM users WHERE id = ?");
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
-    $stmt->bind_result($username);
+    $stmt->bind_result($username, $email);
     $stmt->fetch();
     $stmt->close();
 }
@@ -83,6 +89,8 @@ $conn->close();
     <link rel="stylesheet" type="text/css" href="../css/main.css">
     <link rel="stylesheet" type="text/css" href="../css/account.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script defer src="../js/user_validation.js"></script>
 </head>
 <body>
     <?php include '../header.php'; ?> <!-- Include header if necessary -->
@@ -99,10 +107,23 @@ $conn->close();
                             <span class="error" id="username_error"><?php echo $username_error; ?></span>
                         <?php endif; ?>
                     </div>
+
+                    <div class="input-group" id="email_group">
+                        <label for="email">Email</label>
+                        <input type="email" class="name-input" name="email" value="<?php echo htmlspecialchars($email); ?>" placeholder="Email" required>
+                        <?php if (!empty($email_error)): ?>
+                            <span class="error" id="email_error"><?php echo $email_error; ?></span>
+                        <?php endif; ?>
+                    </div>
                     
                     <div class="input-group" id="password_group">
                         <label for="password">Password</label>
-                        <input type="password" class="name-input" name="password" value="" placeholder="Password" required>
+                        <div class="password-container">
+                            <input type="password" id="password" class="name-input" name="password" placeholder="Password">
+                            <span class="eye-icon" onclick="togglePassword()">
+                                <i id="eye-icon-password" class="fas fa-eye"></i>
+                            </span>
+                        </div>
                         <?php if (!empty($password_error)): ?>
                             <span class="error" id="password_error"><?php echo $password_error; ?></span>
                         <?php endif; ?>
@@ -110,7 +131,12 @@ $conn->close();
 
                     <div class="input-group" id="matching_group">
                         <label for="confirm_password">Re-enter Password</label>
-                        <input type="password" class="name-input" name="confirm_password" value="" placeholder="Re-enter Password" required>
+                        <div class="password-container">
+                            <input type="password" id="reenteredpassword" class="name-input" name="confirm_password" placeholder="Re-enter Password">
+                            <span class="eye-icon" onclick="toggleReenteredPassword()">
+                                <i id="eye-icon-reentered" class="fas fa-eye"></i>
+                            </span>
+                        </div>
                         <?php if (!empty($confirm_password_error)): ?>
                             <span class="error" id="matching_error"><?php echo $confirm_password_error; ?></span>
                         <?php endif; ?>
@@ -126,59 +152,5 @@ $conn->close();
     </div>
     
     <?php include '../footer.php'; ?>
-
-    <script>
-        function validateForm() {
-            let username = document.querySelector('[name="username"]').value;
-            let password = document.querySelector('[name="password"]').value;
-            let confirmPassword = document.querySelector('[name="confirm_password"]').value;
-            let isValid = true;
-
-            // Reset error messages
-            document.querySelectorAll('.error').forEach(el => el.textContent = '');
-
-            // Username validation
-            if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,15}$/.test(username)) {
-                document.querySelector('[name="username"]').nextElementSibling.textContent = 'Username must be 8-15 alphanumeric characters';
-                isValid = false;
-            }
-
-            // Password validation
-            if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/.test(password)) {
-                document.querySelector('[name="password"]').nextElementSibling.textContent = 'Password must be 8-15 characters composed of letters, numbers, and special characters';
-                isValid = false;
-            }
-
-            // Confirm password validation
-            if (password !== confirmPassword) {
-                document.querySelector('[name="confirm_password"]').nextElementSibling.textContent = 'Passwords do not match';
-                isValid = false;
-            }
-
-            return isValid;
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get all input fields with the class 'name-input'
-            const inputs = document.querySelectorAll('.name-input');
-
-            // Add a focus event listener to each input field
-            inputs.forEach(input => {
-                input.addEventListener('focus', function() {
-                    // Find all error messages on the page
-                    const errorSpans = document.querySelectorAll('.error');
-
-                    // Clear the content and hide all error messages
-                    errorSpans.forEach(errorSpan => {
-                        errorSpan.textContent = ''; // Remove the text content
-                        errorSpan.classList.add('hidden'); // Add hidden class to hide the element and its arrow
-
-                        // Additionally, ensure any inline styles that might keep the arrow visible are removed
-                        errorSpan.style.display = 'none';
-                    });
-                });
-            });
-        });
-    </script>
 </body>
 </html>

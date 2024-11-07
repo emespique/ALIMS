@@ -14,13 +14,13 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 
 // Initialize variables
-$first_name = $middle_initial = $last_name = $designation = $laboratory = "";
+$first_name = $middle_initial = $last_name = $designation = $laboratory = $email = "";
 
 // Fetch the latest user information from the database
-$stmt = $conn->prepare("SELECT first_name, middle_initial, last_name, designation, laboratory, username FROM users WHERE id = ?");
+$stmt = $conn->prepare("SELECT first_name, middle_initial, last_name, designation, laboratory, email, username FROM users WHERE id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
-$stmt->bind_result($first_name, $middle_initial, $last_name, $designation, $laboratory, $username);
+$stmt->bind_result($first_name, $middle_initial, $last_name, $designation, $laboratory, $email, $username);
 $stmt->fetch();
 $stmt->close();
 
@@ -63,6 +63,7 @@ $conn->close();
                 <div class="account-section">
                     <h2>ACCOUNT INFORMATION</h2>
                         <p><strong>Username:</strong> <?php echo htmlspecialchars($username); ?></p>
+                        <p><strong>Email:</strong> <?php echo htmlspecialchars($email); ?></p>
                         <p><strong>Password:</strong> **********</p> <!-- Masked password for security -->
                     </div>
                     <button class="update-button" id="account-button" onclick="location.href='update_account_info.php';">
