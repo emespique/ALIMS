@@ -2,6 +2,9 @@
 <?php
 require '../db_connection.php'; // Adjust the path as necessary
 
+// Connect to the user_management database
+$conn = connectToDatabase('user_management');
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'])) {
     $user_id = $_POST['user_id'];
 

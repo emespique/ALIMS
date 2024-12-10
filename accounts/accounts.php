@@ -19,6 +19,9 @@
 require '../header.php';
 require '../db_connection.php';
 
+// Connect to the user_management database
+$conn = connectToDatabase('user_management');
+
 // Check if the user ID is set in the session and if the user is an admin
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     header("Location: login.php");

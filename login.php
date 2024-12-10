@@ -4,6 +4,9 @@
 session_start();
 require 'db_connection.php'; // Ensure the path to db_connection.php is correct
 
+// Connect to the user_management database
+$conn = connectToDatabase('user_management');
+
 $username_error = '';
 $password_error = '';
 

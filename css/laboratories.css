@@ -1,0 +1,32 @@
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    margin: 20px;
+    background: #f2f2f2;
+}
+
+h2 {
+    font-family: 'Georgia', serif;
+    color: #8A1538;
+}
+
+a {
+    color: #8A1538;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.pathology-container, .microbiology-container, .immunology-container {
+    margin: auto;
+    width: 80%;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

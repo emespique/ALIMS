@@ -1,7 +1,10 @@
 <!-- dashboard.php -->
 <?php
 require 'header.php';
-require 'db_connection.php'; // Make sure you include your database connection
+require 'db_connection.php';
+
+// Connect to the user_management database
+$conn = connectToDatabase('user_management');
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {

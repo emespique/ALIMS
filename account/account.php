@@ -4,6 +4,9 @@
 session_start();
 require '../db_connection.php';
 
+// Connect to the user_management database
+$conn = connectToDatabase('user_management');
+
 // Check if the user ID is set in the session
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");

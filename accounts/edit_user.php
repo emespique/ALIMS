@@ -4,6 +4,9 @@
 require '../header.php';
 require '../db_connection.php';
 
+// Connect to the user_management database
+$conn = connectToDatabase('user_management');
+
 // Assume the session contains the logged-in user's username
 $logged_in_username = $_SESSION['username'] ?? ''; // Replace with actual session variable
 

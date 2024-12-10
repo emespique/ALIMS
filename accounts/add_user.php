@@ -4,6 +4,9 @@
 require '../header.php';
 require '../db_connection.php';
 
+// Connect to the user_management database
+$conn = connectToDatabase('user_management');
+
 // Initialize variables and error messages
 $first_name = $middle_initial = $last_name = $designation = $laboratory = $username = $email = $password = $confirm_password = "";
 $username_error = $email_error = $password_error = $confirm_password_error = "";
