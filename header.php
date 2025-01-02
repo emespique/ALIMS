@@ -1,6 +1,12 @@
 <!-- header.php -->
 <?php
-session_start();
+
+// To remove "ignoring session_start()" warning
+if(!isset($_SESSION)){
+    session_start();
+}
+
+
 $role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
 
 // Use the root-relative URL to point directly to the image
@@ -33,8 +39,8 @@ $basePath = '/ALIMS/';
                     <a href="/ALIMS/microbiology.php">Microbiology</a>
                 </div>
             </div>
-            <a href="/ALIMS/purchase order.php">PURCHASE ORDER</a>
-            <a href="/ALIMS/stock level report.php">STOCK LEVEL REPORT</a>
+            <a href="/ALIMS/purchase_order/purchase order.php">PURCHASE ORDER</a>
+            <a href="/ALIMS/stock_level_report/stock level report.php">STOCK LEVEL REPORT</a>
             <a href="/ALIMS/disposition.php">DISPOSITION</a>
             <?php if ($role === 'admin'): ?>
                 <a href="/ALIMS/accounts/accounts.php">ACCOUNTS</a> <!-- Show "Accounts" for admin -->

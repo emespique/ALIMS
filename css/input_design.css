@@ -1,0 +1,19 @@
+.desc-input {
+  width: 60%; /* Adjust the percentage or set a fixed width */
+  max-width: 500px; /* Optional: set a max width */
+  margin-bottom: 15px;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.num-input {
+  width: 40%; /* Adjust the percentage or set a fixed width */
+  max-width: 200px; /* Optional: set a max width */
+  margin-bottom: 15px;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
