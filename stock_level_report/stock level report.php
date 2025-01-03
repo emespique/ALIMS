@@ -30,10 +30,10 @@ $result = $stmt->get_result();
     <?php include '../header.php'; ?>
 
     <div class="content">
-            <h1 class="table-title">Stock Level Report</h1>
-            <div class="add-item">
-                <button onclick="window.location.href='add_item_stock.php'">Add Item</button>
-            </div>
+        <h1 class="table-title">Stock Level Report</h1>
+        <div class="add-item">
+            <button onclick="window.location.href='add_item_stock.php'">Add Item</button>
+        </div>
         <table>
             <thead>
                 <tr>

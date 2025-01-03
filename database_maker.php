@@ -147,6 +147,8 @@ if ($conn->query($table_sql) === TRUE) {
 $insert_sql = "INSERT INTO purchase_order (PO_no, PO_date, PO_status, supplier_name, supplier_address, supplier_phone_no, supplier_email, supplier_contact_person, 
 buyer_lab_name, buyer_lab_address, buyer_lab_phone_no, buyer_lab_email, buyer_contact_person, subtotal, tax, shipping_cost, grand_total) VALUES
 ('IMN0001', '12/31/2024', 'Submitted', 'James Gonzales', 'Manila, Philippines', 0913853953, 'jgonzales@gmail.com', 'Cedric Bueno',
+'MRL - Pathology', 'Quezon City, Philippines', 0928672962, 'mrlpathology@gmail.com', 'Daniel Uy', 140000.00, 14000.00, 5000.00, 159000.00),
+('MIC0001', '11/29/2024', 'Submitted', 'James Gonzales', 'Manila, Philippines', 0913853953, 'jgonzales@gmail.com', 'Cedric Bueno',
 'MRL - Pathology', 'Quezon City, Philippines', 0928672962, 'mrlpathology@gmail.com', 'Daniel Uy', 140000.00, 14000.00, 5000.00, 159000.00)";
 
 // Check if table is empty, then insert values
@@ -189,7 +191,8 @@ if ($conn->query($table_sql) === TRUE) {
 $insert_sql = "INSERT INTO purchase_order_items (PO_no, item_desc, quantity, unit_price, total_price) VALUES
 ('IMN0001', 'Microscope, Model XYZ, 200x magnification', 2, 30000.00, 60000),
 ('IMN0001', 'Centrifuge, Model AB', 1, 55000.00, 55000.00),
-('IMN0001', 'Glass Beakers, 100mL, pack of 10', 5, 5000.00, 25000.00)";
+('IMN0001', 'Glass Beakers, 100mL, pack of 10', 5, 5000.00, 25000.00),
+('MIC0001', 'Microscope Slides, Brand M', 4, 3000.00, 12000.00)";
 
 // Check if table is empty, then insert values
 $result = $conn->query("SELECT 1 FROM purchase_order_items LIMIT 1");

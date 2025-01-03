@@ -7,10 +7,16 @@ require '../db_connection.php';
 // Connect to the user_management database
 $conn = connectToDatabase('form_data');
 
+
 // show all items
 $stmt = $conn->prepare("SELECT * FROM purchase_order");
 $stmt->execute();
 $result = $stmt->get_result();
+
+$stmt = $conn->prepare("SELECT * FROM purchase_order_items WHERE PO_no = ?");
+$stmt->bind_param("s", $_GET['id']); // "s" means the parameter is a string
+$stmt->execute();
+$result_items = $stmt->get_result();
 ?>
 
 
@@ -30,29 +36,27 @@ $result = $stmt->get_result();
     <?php include '../header.php'; ?>
 
     <div class="content">
-        <h1 class="table-title">Purchase Order Form</h1>
+        <h1 class="table-title">Purchase Order Form (details)</h1>
         <div class="add-item">
-            <button onclick="window.location.href='add_item_PO.php'">Add Item</button>
+            <button onclick="window.location.href='purchase order.php'">Go Back ←</button>
         </div>
         <table class="table_PO">
             <thead>
                 <tr>
-                    <th>PO No.</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                    <th>Grand Total Price(PHP)</th>
-                    <th>Details</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Unit Price (PHP)</th>
+                    <th>Total Price (PHP)</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-            <?php while ($row = $result->fetch_assoc()): ?>
+            <?php while ($row = $result_items->fetch_assoc()): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($row['PO_no']); ?></td>
-                        <td><?php echo htmlspecialchars($row['PO_date']); ?></td>
-                        <td><?php echo htmlspecialchars($row['PO_status']); ?></td>
-                        <td><?php echo htmlspecialchars($row['grand_total']); ?></td>
-                        <td><a href="purchase order details.php?id=<?php echo $row['PO_no']; ?>">click here</a></td>
+                        <td><?php echo htmlspecialchars($row['item_desc']); ?></td>
+                        <td><?php echo htmlspecialchars($row['quantity']); ?></td>
+                        <td><?php echo htmlspecialchars($row['unit_price']); ?></td>
+                        <td><?php echo htmlspecialchars($row['total_price']); ?></td>
                         <td>
                             <div class="actions">
                                 <button class="delete-button">Delete</button>
