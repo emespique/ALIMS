@@ -1,12 +1,18 @@
+.add-item {
+    float: right;
+    padding: 0px 0px 20px 0px;
+    margin-right: 120px;
+}
+
 .table-title {
     font-weight: bold; 
     font-size: 1.2em; 
-    margin-bottom: 1em; 
+    margin-bottom: 1em;
 }
 
-table {
-    width: 100%; 
-    border-collapse: collapse; 
+.table_PO {
+    width: 80%; 
+    border-collapse: collapse;
 }
 
 th {
