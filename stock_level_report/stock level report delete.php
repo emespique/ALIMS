@@ -6,11 +6,13 @@ require '../db_connection.php'; // Adjust the path as necessary
 $conn = connectToDatabase('form_data');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $user_id = $_POST['user_id'];
+    $item_id = $_POST['item_id'];
+
+    $is_deleted = 1;
 
     // Prepare and execute the delete query
-    $stmt = $conn->prepare("DELETE FROM stock_level WHERE id = ?");
-    $stmt->bind_param("i", $user_id);
+    $stmt = $conn->prepare("UPDATE items SET is_deleted = ? WHERE item_id = ?");
+    $stmt->bind_param("is", $is_deleted, $item_id);
 
     if ($stmt->execute()) {
         // Redirect back to stock level report.php after deletion

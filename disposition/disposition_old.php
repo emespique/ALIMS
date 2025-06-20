@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/disposition.css"> 
 </head>
 <body>
-    <?php include 'header.php'; ?>
+    <?php include '../header.php'; ?>
 
     <main class="content">
         <div class="table-title">Disposition</div> 
@@ -60,7 +60,7 @@
         </table>
     </main>
 
-    <?php include 'footer.php'; ?>
+    <?php include '../footer.php'; ?>
 
     <script src="script.js"></script> 
 </body>

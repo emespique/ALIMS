@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Phone Number List with Persistent Checkboxes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+    }
+    .number-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 10px;
+    }
+    label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #f9f9f9;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>Phone Number List</h1>
+  <div class="number-list" id="numberList"></div>
+
+  <script>
+    const numbers = [
+      "09758234910", "09173458293", "09361245783", "09284579831", "09458721340",
+      "09192658431", "09984567213", "09276543012", "09152348769", "09358672190",
+      "09413579862", "09062348597", "09124857639", "09378524310", "09213458976",
+      "09103482579", "09394256781", "09913485720", "09284237659", "09123478950",
+      "09467895210", "09746238459", "09172346892", "09013487652", "09358724631",
+      "09214569873", "09458372691", "09182563409", "09064823957", "09968235410",
+      "09237456820", "09384267590", "09023658472", "09136784529", "09724586901",
+      "09284576239", "09198273645", "09425638719", "09312346785", "09267583901",
+      "09134875629", "09028436578", "09483726490", "09314658237", "09127834260",
+      "09786521430", "09231548679", "09074658291", "09384237658"
+    ];
+
+    const numberList = document.getElementById("numberList");
+
+    numbers.forEach((number, index) => {
+      const id = `checkbox-${index}`;
+      const checked = localStorage.getItem(id) === "true";
+
+      const label = document.createElement("label");
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.id = id;
+      checkbox.checked = checked;
+
+      checkbox.addEventListener("change", () => {
+        localStorage.setItem(id, checkbox.checked);
+      });
+
+      label.appendChild(checkbox);
+      label.appendChild(document.createTextNode(number));
+      numberList.appendChild(label);
+    });
+  </script>
+</body>
+</html>

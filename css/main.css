@@ -143,11 +143,26 @@ footer {
 }
 
 /* Headings */
+
+h1 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 28px;
+    color: #8A1538;
+    margin-bottom: 15px;
+}
+
 h2 {
     font-family: 'Open Sans', sans-serif;
     font-size: 24px;
     color: #8A1538;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
+}
+
+h3 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    color: #8A1538;
+    margin-bottom: 9px;
 }
 
 /* Update button styling */
