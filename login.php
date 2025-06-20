@@ -20,6 +20,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute();
     $result = $stmt->get_result();
 
+    // Initiate session variables
+    $_SESSION['supplier_id'] = null;
+    $_SESSION['items_list'] = null;
+    $_SESSION['selected_items'] = null;
+    $_SESSION['laboratory_choice'] = null;
+    $_SESSION['purchase_order'] = null;
+
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
 
@@ -29,6 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user['role']; // Store the role ('admin' or 'user')
             $_SESSION['user_id'] = $user['id']; // Store the user ID in the session
+            $_SESSION['laboratory'] = $user['laboratory']; // Store laboratories
+            
             header("Location: dashboard.php");
             exit();
         } else {

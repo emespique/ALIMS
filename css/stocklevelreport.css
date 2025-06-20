@@ -26,6 +26,13 @@ tbody tr:nth-child(even) {
 
 .add-item {
     float: right;
+    padding: 0px 0px 20px 0px;
+}
+
+.edit-btns { 
+    display: none; 
+    gap: 10px;
+    float: right;
     padding: 0px 0px 20px 0px
 }
 
@@ -46,3 +53,81 @@ tbody tr:nth-child(even) {
 .generate-btn:hover {
     background-color: #8A1538; 
 }
+
+.stock-green { color: green; }
+.stock-yellow { color: rgb(207, 207, 0); }
+.stock-orange { color: orange; }
+.stock-red { color: red; }
+
+
+
+.stock-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding-right: 10px;
+}
+
+.toggle-details {
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: #b40000;
+    padding: 0;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+}
+
+.toggle-details:hover {
+    color: #800000;
+    background: transparent;
+    outline: none;
+    box-shadow: none;
+}
+
+.details-flyout {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+    margin-left: 10px;
+
+    padding: 6px 15px 10px 15px;
+    border-radius: 8px;
+    box-shadow: 4px 8px 20px rgba(0, 0, 0, 0.5);
+    background-color: inherit;
+    z-index: 100;
+
+    white-space: nowrap;
+    min-width: 160px;           /* Set initial width */
+    width: fit-content;         /* Expand for larger content */
+    max-width: 600px;           /* Optional: prevent it from being too huge */
+}
+
+
+.info-columns-view-stock {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.column-view-stock {
+    flex: 1;
+    min-width: 0;
+}
+
+.stock-line {
+    display: inline-block; /* shrink-wrap to content width */
+}
+
+.stock-line hr {
+    width: calc(100% + 15px);  /* Extend 20px to the right only */
+    margin-left: 0;            /* Keep the left side in place */
+    border: none;
+    border-top: 1px solid #000000;
+}
+

@@ -34,11 +34,11 @@ tbody tr:hover {
     gap: 10px;
 }
 
-.edit-button, .delete-button {
+.edit-button, .delete-button, .view-button, .restore-button, .pdf-button {
     padding: 5px 10px;
 }
 
-.edit-button {
+.edit-button, .restore-button {
     background-color: #4CAF50;
 }
 
@@ -46,10 +46,18 @@ tbody tr:hover {
     background-color: #f44336;
 }
 
+.view-button {
+    background-color: rgb(49, 49, 231)
+}
+
+.pdf-button {
+    background-color: #FF0000;
+}
 
 /* Information styling */
 .information {
     margin-left: 40px;
+    margin-right: 40px;
     margin-bottom: 30px;
 }
 
@@ -68,6 +76,15 @@ tbody tr:hover {
 
 .input-group {
     margin-bottom: 20px;
+}
+
+.inline-input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.inline-input-group label {
+    margin: 0;
 }
 
 label {
@@ -262,6 +279,20 @@ label {
     text-align: center; /* Center text inside the button */
 }
 
+.modal-buttons .restore-button {
+    background-color: #4CAF50; /* Red for delete button */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    width: 100px; /* Fixed width for uniform size */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center; /* Center text inside the button */
+}
+
 /* Styling for the Cancel button specifically */
 .modal-buttons .cancel-button {
     background-color: #6e6e6e; /* Gray for cancel button */
@@ -269,6 +300,7 @@ label {
 
 /* Hover effect for buttons */
 .modal-buttons .delete-button:hover,
+.modal-buttons .restore-button:hover,
 .modal-buttons .cancel-button:hover {
     opacity: 0.9;
 }

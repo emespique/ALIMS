@@ -11,6 +11,14 @@ $role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
 
 // Use the root-relative URL to point directly to the image
 $basePath = '/ALIMS/';
+
+// initiate session variables
+$_SESSION['supplier_id'] = null;
+$_SESSION['items_list'] = null;
+$_SESSION['selected_items'] = null;
+$_SESSION['laboratory_choice'] = null;
+$_SESSION['purchase_order'] = null;
+
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +49,7 @@ $basePath = '/ALIMS/';
             </div>
             <a href="/ALIMS/purchase_order/purchase order.php">PURCHASE ORDER</a>
             <a href="/ALIMS/stock_level_report/stock level report.php">STOCK LEVEL REPORT</a>
-            <a href="/ALIMS/disposition.php">DISPOSITION</a>
+            <a href="/ALIMS/disposition/disposition.php">DISPOSITION</a>
             <?php if ($role === 'admin'): ?>
                 <a href="/ALIMS/accounts/accounts.php">ACCOUNTS</a> <!-- Show "Accounts" for admin -->
             <?php else: ?>
