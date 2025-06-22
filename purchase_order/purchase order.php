@@ -101,18 +101,17 @@ while ($row = $history_result->fetch_assoc()) {
                 endforeach; ?>
             </tbody>
         </table>
-    </div>
 
-        <div class="content">
+        <br><br>
         <h1 class="table-title"><?php echo $my ?>Purchase Order History (Canceled)</h1>
         <table class="table_PO">
             <thead>
                 <tr>
                     <th>PO No.</th>
                     <th>Date</th>
-                    <th>Grand Total Price(PHP)</th>
+                    <th style="width:18%">Grand Total Price(PHP)</th>
                     <th>Cancelation Reason</th>
-                    <th>Actions</th>
+                    <th style="width:20%">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -139,7 +138,6 @@ while ($row = $history_result->fetch_assoc()) {
                                 } else {
                                     echo "Order complications";
                                 }
-
                             ?>
                         </td>
                         <td>

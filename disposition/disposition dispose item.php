@@ -144,7 +144,7 @@ $conn->close();
                     </div>
 
                     <div class="button-container">
-                        <button type="submit" class="save-button">ADD</button>
+                        <button type="submit" class="save-button">DISPOSE</button>
                         <button type="button" class="cancel-button" onclick="window.location.href='disposition.php';">CANCEL</button>
                     </div>
                 </form>

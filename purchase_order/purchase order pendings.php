@@ -7,6 +7,7 @@ require '../db_connection.php';
 
 $session_user_id = $_SESSION['user_id'];
 
+$status = "";
 
 $my = "";
 if ($_SESSION['role'] === 'user') {
@@ -84,8 +85,8 @@ while ($row = $pending_result->fetch_assoc()) {
                     if (
                         $row['final_status'] == 'Pending' && (
                         ($session_user_id == 1 && $row["admin_status"] == "Approved" && $row["head_admin_status"] != "Approved") || // Head Admin sees all
-                        (in_array($session_user_id, [2, 3, 4]) && $row["admin_status"] != "Approved") && $session_lab_id == $row['lab_id'] ) || // Lab admins see lab rows
-                        ($session_user_id == $row['user_id'] && $session_user_id != 1) // Regular users see their own rows
+                        (in_array($session_user_id, [2, 3, 4]) && $row["admin_status"] != "Approved") && $session_lab_id == $row['lab_id'] || // Lab admins see lab rows
+                        ($session_user_id == $row['user_id'] && $session_user_id != 1) ) // Regular users see their own rows
                     ): ?>
                     <tr>
                         <td><?php echo htmlspecialchars($current_PO_no); ?></td>
@@ -104,7 +105,7 @@ while ($row = $pending_result->fetch_assoc()) {
                         <?php endif; ?>
                         <td>
                             <div class="actions" style="display: flex; justify-content: center;">
-                                <button class="view-button" onclick="window.location.href='purchase order details.php?PO_no=<?php echo $row['PO_no']; ?>' ">View</button>
+                                <button class="view-button" onclick="window.location.href='purchase order details pendings.php?PO_no=<?php echo $row['PO_no']; ?>' ">View</button>
                                 <?php if ($session_user_id == 1 && $row["admin_status"] == "Approved"): ?>
                                     <button class="edit-button" onclick="headAdminApprove('<?= $current_PO_no; ?>')">Approve</button>
                                     <button class="delete-button" onclick="headAdminReject('<?= $current_PO_no; ?>')">Reject</button>
@@ -153,7 +154,7 @@ while ($row = $pending_result->fetch_assoc()) {
                         <td><?php echo htmlspecialchars($row['grand_total']); ?></td>
                         <td>
                             <div class="actions" style="display: flex; justify-content: center;">
-                                <button class="view-button" onclick="window.location.href='purchase order details.php?PO_no=<?php echo $row['PO_no']; ?>' ">View</button>
+                                <button class="view-button" onclick="window.location.href='purchase order details pendings.php?PO_no=<?php echo $row['PO_no']; ?>' ">View</button>
                                 <?php if ($session_user_id == 1): ?>
                                     <button class="edit-button" onclick="updateStatus('<?= $current_PO_no; ?>')">Update</button>
                                 <?php endif; ?>

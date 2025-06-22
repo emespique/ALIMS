@@ -296,9 +296,9 @@ $data = [];
 
 while ($row = $PO_result_items->fetch_assoc()) {
     $item_id = $row['item_id'];
-    $description = $row['item_name'] . ', ' . $row['item_desc'];
+    $description = $row['item_name'] . ', ' . utf8_decode($row['item_desc']);
     $quantity = $row['quantity'];
-    $unit = $row['unit_of_measure']; // or fetch this if it's in DB
+    $unit = utf8_decode($row['unit_of_measure']); // or fetch this if it's in DB
     $unit_price = number_format($row['unit_price'], 2);
     $total_price = number_format($row['total_price'], 2);
 
