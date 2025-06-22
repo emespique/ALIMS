@@ -93,7 +93,7 @@ $result = $stmt->get_result();
                             <td><?php $max_stock = $row['immunology_max_stock']; echo htmlspecialchars($max_stock); ?></td>
                         <?php elseif ($user_id == 4): ?>
                             <td><?php $min_stock = $row['microbiology_min_stock']; echo htmlspecialchars($min_stock); ?></td>
-                            <td><?php $max_stock = $row['immunology_max_stock']; echo htmlspecialchars($max_stock); ?></td>
+                            <td><?php $max_stock = $row['microbiology_max_stock']; echo htmlspecialchars($max_stock); ?></td>
                         <?php endif; ?>
                         <?php if ($user_id == 2 || $user_id == 3 || $user_id == 4): ?>
                             <td>

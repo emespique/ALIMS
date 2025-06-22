@@ -134,7 +134,7 @@ $stmt->close();
     <div class="content">
         <h1 class="table-title"><?php echo $my ?>Purchase Order (Details)</h1>
         <div class="add-item">
-            <button onclick="window.location.href='purchase order.php'">Go Back ←</button>
+            <button onclick="window.location.href='purchase order pendings.php'">Go Back ←</button>
         </div>
         <table>
             <thead>

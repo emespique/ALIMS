@@ -21,8 +21,8 @@ $supplier_id = $item_name = $item_desc = $item_type = $unit_of_measure = $expiry
 
 $price_per_unit = $weight_per_unit = 
 $pathology_stock = $immunology_stock = $microbiology_stock = 
-$min_stock = $min_pathology_stock = $min_immunology_stock = $min_microbiology_stock = 
-$max_stock = $max_pathology_stock = $max_immunology_stock = $max_microbiology_stock = 0;
+$min_stock = $pathology_min_stock = $immunology_min_stock = $microbiology_min_stock = 
+$max_stock = $pathology_max_stock = $immunology_max_stock = $microbiology_max_stock = 0;
 
 $max_stock_error = "";
 
@@ -90,13 +90,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $stmt->bind_param("iis", $min_stock, $max_stock, $item_id);
 
         } elseif ($user_id == 3) {
-            $stmt = $conn->prepare("UPDATE items SET immunology_stock = ?, immunology_max_stock = ?
+            $stmt = $conn->prepare("UPDATE items SET immunology_min_stock = ?, immunology_max_stock = ?
                 WHERE item_id = ?");
 
             $stmt->bind_param("iis", $min_stock, $max_stock, $item_id);
 
         } elseif ($user_id == 4) {
-            $stmt = $conn->prepare("UPDATE items SET microbiology_stock = ?, microbiology_max_stock = ?
+            $stmt = $conn->prepare("UPDATE items SET microbiology_min_stock = ?, microbiology_max_stock = ?
                 WHERE item_id = ?");
 
             $stmt->bind_param("iis", $min_stock, $max_stock, $item_id);
@@ -235,15 +235,15 @@ $conn->close();
                             <label for="min_stock">Minimum Stock Level</label>
                             <input type="number" min="0" class="num-input" name="min_stock" value=
                             "<?php 
-                                $min_stock_lab = '';
+                                $min_stock = '';
                                 if ($user_id == 2) {
-                                  $min_stock_lab = $pathology_min_stock;
+                                  $min_stock = $pathology_min_stock;
                                 } elseif ($user_id == 3) {
-                                    $min_stock_lab = $immunology_min_stock;
+                                    $min_stock = $immunology_min_stock;
                                 } else {
-                                    $min_stock_lab = $microbiology_min_stock;
+                                    $min_stock = $microbiology_min_stock;
                                 }
-                                echo htmlspecialchars($min_stock_lab);
+                                echo htmlspecialchars($min_stock);
                             ?>"
                             onkeypress="return (event.charCode != 8 && event.charCode == 0 || (event.charCode >= 48 && event.charCode <= 57))" required>
                         </div>
@@ -252,15 +252,15 @@ $conn->close();
                             <label for="max_stock">Maximum Stock Level</label>
                             <input type="number" min="0" class="num-input" name="max_stock" value=
                             "<?php 
-                                $max_stock_lab = '';
+                                $max_stock = '';
                                 if ($user_id == 2) {
-                                  $max_stock_lab = $pathology_max_stock;
+                                  $max_stock = $pathology_max_stock;
                                 } elseif ($user_id == 3) {
-                                    $max_stock_lab = $immunology_max_stock;
+                                    $max_stock = $immunology_max_stock;
                                 } else {
-                                    $max_stock_lab = $microbiology_max_stock;
+                                    $max_stock = $microbiology_max_stock;
                                 }
-                                echo htmlspecialchars($max_stock_lab);
+                                echo htmlspecialchars($max_stock);
                             ?>"
                             onkeypress="return (event.charCode != 8 && event.charCode == 0 || (event.charCode >= 48 && event.charCode <= 57))" required>
                             <?php if (!empty($max_stock_error)): ?>

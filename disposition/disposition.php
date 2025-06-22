@@ -8,7 +8,7 @@ require '../db_connection.php';
 $session_user_id = $_SESSION['user_id'];
 
 $my = $status = "";
-if (!in_array($session_user_id, [1,2,3,4])) {
+if (in_array($session_user_id, [2,3,4])) {
     $my = "My ";
 }
 
@@ -137,7 +137,7 @@ $disposition_result = $stmt->get_result();
 
     <div class="modal" id="shoppingCartModal" style="display: none;">
         <div class="modal-content" style="min-width: 600px;">
-            <h3>Add item</h3>
+            <h3>Dispose item</h3>
             <form id="deleteForm" action="disposition dispose item.php" method="POST">
                 <div class="custom-dropdown">
                     <input type="hidden" name="item_id" id="selectedItemId" required>
